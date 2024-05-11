@@ -1,0 +1,12 @@
+{
+  "home_page": "Imagem Astronômica do Dia",
+  "detail_page": "Detalhes",
+  "search_field": "Buscar por título ou data",
+  "no_media": "Nenhum arquivo de mídia encontrado",
+  "no_media_content": "Por favor, verifique sua conexão com a internet. Quando os arquivos de mídia da NASA forem carregados, eles serão automaticamente salvos em seu dispositivo.",
+  "outdated_data": "Os dados podem estar desatualizados.",
+  "need_internet": "Para assistir a este vídeo, é necessária conexão com a internet.",
+  "no_more_data": "Não há mais dados disponíveis",
+  "unknown_media": "Tipo de mídia desconhecido",
+  "unexpected_error": "Ocorreu um erro inesperado."
+}
