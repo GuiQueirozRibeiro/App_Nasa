@@ -1,6 +1,6 @@
 # Astronomy Picture of the Day App
 
-![Logo NASA](lib\assets\splash\app_icon_foreground.png)
+![Logo NASA](lib/assets/splash/app_icon_foreground.png)
 
 This project is a mobile application developed using Dart language and Flutter framework. The app fetches media from NASA's "Astronomy Picture of the Day" website and presents them in an organized manner. It consists of two screens: a list of media and a detail screen for each image. The app also supports offline functionality, allowing users to view previously loaded media even without an internet connection.
 
