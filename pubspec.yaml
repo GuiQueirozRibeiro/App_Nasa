@@ -34,7 +34,7 @@ dependencies:
   provider: ^6.1.2
 
   # Localization and Internationalization
-  intl: ^0.18.1
+  intl: ^0.19.0
   localization: ^2.1.1
   flutter_localizations:
     sdk: flutter
