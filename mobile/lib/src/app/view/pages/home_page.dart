@@ -118,9 +118,7 @@ class _HomePageState extends State<HomePage> with DialogMixin {
                     },
                     builder: (context, state) {
                       if (state is MediaLoading) {
-                        return const Expanded(
-                          child: CircularProgressIndicator(),
-                        );
+                        return const Expanded(child: Loader());
                       }
                       if (state is MediaDisplayState) {
                         mediaList = state.mediaList;

@@ -46,11 +46,7 @@ class MediaBloc extends Bloc<MediaEvent, MediaState> {
     Emitter<MediaState> emit,
   ) async {
     final date = baseMediaList.last.date.subtract(const Duration(days: 1));
-    final result = await _getMoreMedia(
-      GetMoreMediaParams(
-        date: date,
-      ),
-    );
+    final result = await _getMoreMedia(GetMoreMediaParams(date: date));
 
     result.fold(
       (failure) => emit(MediaFailure(failure.message)),

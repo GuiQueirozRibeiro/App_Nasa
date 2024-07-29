@@ -24,7 +24,4 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0 # Contains a recommended set of lints
-
-flutter:
-  assets:
-    - lib/assets/.env
+  mockito: ^5.4.4 # Mocking utilities

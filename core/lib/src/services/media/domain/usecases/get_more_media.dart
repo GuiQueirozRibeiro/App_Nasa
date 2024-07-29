@@ -19,5 +19,5 @@ class GetMoreMedia implements UseCase<List<Media>, GetMoreMediaParams> {
 
 class GetMoreMediaParams {
   final DateTime date;
-  GetMoreMediaParams({required this.date});
+  const GetMoreMediaParams({required this.date});
 }
