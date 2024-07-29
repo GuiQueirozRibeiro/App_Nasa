@@ -1,0 +1,29 @@
+name: core
+description: Core logic and business rules for the project.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.3 <4.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  dio: ^5.5.0+1 # HTTP Client
+  fpdart: ^1.1.0 # Functional programming utilities
+  hive: ^2.2.3 # Local Database manager
+  internet_connection_checker_plus: ^2.5.0 # Check if the device is connected to the internet
+  intl: ^0.19.0 # Time Internationalization
+  logger: ^2.4.0 # Logging utilities
+  path: ^1.9.0 # File path utilities
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0 # Contains a recommended set of lints
+
+flutter:
+  assets:
+    - lib/assets/.env
