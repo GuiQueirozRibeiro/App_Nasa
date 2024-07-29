@@ -1,0 +1,12 @@
+{
+  "home_page": "Astronomy Image of the Day",
+  "detail_page": "Details",
+  "search_field": "Search by title or date",
+  "no_media": "No media found",
+  "no_media_content": "Please check your internet connection. When loading the media from NASA, they will be automatically saved on your device.",
+  "outdated_data": "Data may be outdated.",
+  "need_internet": "To watch this video, internet connection is required.",
+  "no_more_data": "No more data available",
+  "unknown_media": "Unknown media Type",
+  "unexpected_error": "An unexpected error occurred,"
+}

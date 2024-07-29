@@ -8,13 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class DetailPage extends StatefulWidget {
-  static Route route(Media media) {
-    return MaterialPageRoute(
-      builder: (context) => DetailPage(media: media),
-    );
-  }
+// Mobile application imports
+import 'package:mobile/src/common/widgets/video_placeholder.dart';
 
+class DetailPage extends StatefulWidget {
   final Media media;
   const DetailPage({super.key, required this.media});
 

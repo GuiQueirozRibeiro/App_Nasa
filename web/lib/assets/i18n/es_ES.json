@@ -1,0 +1,12 @@
+{
+  "home_page": "Imagen Astronómica del Día",
+  "detail_page": "Detalles",
+  "search_field": "Buscar por título o fecha",
+  "no_media": "No se encontraron archivos multimedia",
+  "no_media_content": "Por favor, verifica tu conexión a internet. Cuando se carguen los archivos multimedia de la NASA, se guardarán automáticamente en tu dispositivo.",
+  "outdated_data": "Los datos pueden estar desactualizados.",
+  "need_internet": "Para ver este video, se requiere conexión a internet.",
+  "no_more_data": "No hay más datos disponibles",
+  "unknown_media": "Tipo de archivo multimedia desconocido",
+  "unexpected_error": "Se produjo un error inesperado."
+}

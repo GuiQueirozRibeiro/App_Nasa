@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 class CoreConfig {
   const CoreConfig._();
 
-  static Future<Box> initializeHive() async {
+  static Future<Box> initialize() async {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     final mediaDirectory = Directory(
       path.join(appDocumentDirectory.path, 'media'),

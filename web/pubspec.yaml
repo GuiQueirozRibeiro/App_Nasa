@@ -1,0 +1,45 @@
+name: web
+description: "Web-specific code for the project."
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.3 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  core:
+    path: ../core
+
+  cached_network_image: ^3.3.1
+  youtube_player_flutter: 9.0.0 # Video player *OBS* Version 9.0.1 has a bug
+  flutter_modular: ^6.3.4
+  path: ^1.9.0
+  provider: ^6.1.2
+  signals_flutter: ^5.2.2
+  localization: ^2.1.1
+  flutter_localizations:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+  flutter_lints: ^3.0.0
+
+flutter_launcher_icons:
+  web:
+    generate: true
+    image_path: "lib/assets/splash/app_icon_rect.png"
+    background_color: "#323a45"
+    theme_color: "#105bd8"
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - lib/assets/i18n/
+    - lib/assets/images/
+    - lib/assets/splash/

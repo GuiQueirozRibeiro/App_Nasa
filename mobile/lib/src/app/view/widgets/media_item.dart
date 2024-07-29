@@ -5,9 +5,10 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 // Mobile application imports
-import 'package:mobile/src/app/view/pages/detail_page.dart';
+import 'package:mobile/src/common/widgets/video_placeholder.dart';
 
 class MediaItem extends StatelessWidget {
   final Media media;
@@ -18,7 +19,7 @@ class MediaItem extends StatelessWidget {
     final currentLocale = Localizations.localeOf(context);
 
     return GestureDetector(
-      onTap: () => Navigator.push(context, DetailPage.route(media)),
+      onTap: () => Modular.to.pushNamed('detail', arguments: media),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),

@@ -4,7 +4,7 @@ import 'package:logger/logger.dart';
 
 // Core module imports
 import 'package:core/src/log/log.dart';
-import 'package:core/src/secrets/core_secrets.dart';
+import 'package:core/src/secrets/secrets.dart';
 import 'package:core/src/services/http/http_exception.dart';
 import 'package:core/src/services/http/http_response.dart';
 import 'package:core/src/services/http/i_http.dart';

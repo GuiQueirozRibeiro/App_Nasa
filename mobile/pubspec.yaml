@@ -13,16 +13,14 @@ dependencies:
   core:
     path: ../core
 
-  get_it: ^7.7.0 # Dependency Injection
-  internet_connection_checker_plus: ^2.5.0 # Check if the device is connected to the internet
-  cached_network_image: ^3.3.1 # Cached Image
+  cached_network_image: ^3.3.1
+  connectivity_plus: ^6.0.4
   youtube_player_flutter: 9.0.0 # Video player *OBS* Version 9.0.1 has a bug
-  flutter_bloc: ^8.1.4 # State management
-  hive: ^2.2.3 # Local Database manager
-  path: ^1.9.0 # File path utilities
-
-  # Localization and Internationalization
+  flutter_modular: ^6.3.4
+  path: ^1.9.0
+  provider: ^6.1.2
   localization: ^2.1.1
+  signals_flutter: ^5.2.2
   flutter_localizations:
     sdk: flutter
 
@@ -37,10 +35,8 @@ flutter:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  # Development Tools
-  flutter_launcher_icons: ^0.13.1 # Create and generate the launcher icons
-  flutter_lints: ^3.0.0 # Contains a recommended set of lints
+  flutter_launcher_icons: ^0.13.1
+  flutter_lints: ^3.0.0
 
 flutter_launcher_icons:
   android: true

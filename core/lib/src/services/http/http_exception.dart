@@ -9,6 +9,7 @@ class HttpExceptionCustom implements Exception {
   final StackTrace stackTrace;
   final String? message;
   final String? msg;
+
   HttpExceptionCustom({
     required this.requestOptions,
     required this.type,
@@ -18,6 +19,7 @@ class HttpExceptionCustom implements Exception {
     this.message,
     this.msg,
   });
+
   HttpExceptionCustom copyWith({
     RequestOptions? requestOptions,
     Response? response,
