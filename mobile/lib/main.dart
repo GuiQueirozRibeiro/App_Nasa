@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localization/localization.dart';
-import 'package:provider/provider.dart';
 
 // Mobile application imports
 import 'package:mobile/init_dependencies.dart';
 import 'package:mobile/src/app/viewmodel/bloc/media_bloc.dart';
-import 'package:mobile/src/app/viewmodel/controllers/media_state_controller.dart';
 import 'package:mobile/src/app/view/pages/home_page.dart';
 
 void main() async {
@@ -24,13 +22,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     LocalJsonLocalization.delegate.directories = ['lib/assets/i18n'];
 
-    return MultiProvider(
-      providers: [
-        BlocProvider(create: (_) => serviceLocator<MediaBloc>()),
-        ChangeNotifierProvider<MediaStateController>(
-          create: (_) => serviceLocator<MediaStateController>(),
-        ),
-      ],
+    return BlocProvider(
+      create: (_) => serviceLocator<MediaBloc>(),
       child: MaterialApp(
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(

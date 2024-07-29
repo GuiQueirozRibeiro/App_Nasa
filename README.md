@@ -15,7 +15,7 @@ This project is a mobile application developed using Dart language and Flutter f
 
 ## NASA API Integration
 
-The app retrieves media from NASA's API, specifically the "Astronomy Picture of the Day" API. The integration with the NASA API ensures that users receive up-to-date and accurate information about astronomy pictures.
+The app retrieves media from NASA's API, specifically the "Astronomy Picture of the Day" API. The integration with the NASA API ensures that users receive up-to-date and accurate information about astronomy pictures https://api.nasa.gov/.
 
 ## Project Structure
 

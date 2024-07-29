@@ -1,5 +1,6 @@
 library core;
 
+export 'src/config/config.dart';
 export 'src/enums/enums.dart';
 export 'src/errors/errors.dart';
 export 'src/network/network.dart';

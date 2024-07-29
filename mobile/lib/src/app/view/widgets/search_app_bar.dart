@@ -12,6 +12,11 @@ class SearchAppBar extends StatelessWidget {
     required this.onChanged,
   });
 
+  void clear() {
+    controller.clear();
+    onChanged('');
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -28,10 +33,5 @@ class SearchAppBar extends StatelessWidget {
       onChanged: onChanged,
       onSubmitted: onChanged,
     );
-  }
-
-  void clear() {
-    controller.clear();
-    onChanged('');
   }
 }

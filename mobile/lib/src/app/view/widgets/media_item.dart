@@ -30,7 +30,7 @@ class MediaItem extends StatelessWidget {
               child: Center(
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  child: _buildImage(),
+                  child: buildImage(),
                 ),
               ),
             ),
@@ -39,9 +39,9 @@ class MediaItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildTitle(),
+                  buildTitle(),
                   const SizedBox(height: 4),
-                  _buildDate(currentLocale),
+                  buildDate(currentLocale),
                 ],
               ),
             ),
@@ -51,7 +51,7 @@ class MediaItem extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle() {
+  Widget buildTitle() {
     return Text(
       media.title,
       style: const TextStyle(
@@ -62,7 +62,7 @@ class MediaItem extends StatelessWidget {
     );
   }
 
-  Widget _buildDate(Locale currentLocale) {
+  Widget buildDate(Locale currentLocale) {
     return Text(
       TimeUtil.formatDate(currentLocale, media.date),
       style: const TextStyle(
@@ -73,19 +73,19 @@ class MediaItem extends StatelessWidget {
     );
   }
 
-  Widget _buildImage() {
+  Widget buildImage() {
     switch (media.mediaType) {
       case MediaType.image:
-        return _buildNetworkImage();
+        return buildNetworkImage();
       case MediaType.imageFile:
-        return _buildLocalImage();
+        return buildLocalImage();
       case MediaType.video:
       case MediaType.videoFile:
         return const VideoPlaceholder();
     }
   }
 
-  Widget _buildNetworkImage() {
+  Widget buildNetworkImage() {
     return Container(
       color: Colors.grey,
       height: 220,
@@ -99,7 +99,7 @@ class MediaItem extends StatelessWidget {
     );
   }
 
-  Widget _buildLocalImage() {
+  Widget buildLocalImage() {
     return Image.file(
       File(media.url),
       height: 220,

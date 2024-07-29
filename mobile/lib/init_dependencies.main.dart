@@ -4,19 +4,8 @@ final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
   // App Directory
-  final appDocumentDirectory = await getApplicationDocumentsDirectory();
-  final mediaDirectory = Directory(
-    path.join(appDocumentDirectory.path, 'media'),
-  );
-  if (!await mediaDirectory.exists()) {
-    await mediaDirectory.create(recursive: true);
-  }
-  serviceLocator.registerLazySingleton(() => mediaDirectory);
-
-  // Local Database
-  Hive.init(mediaDirectory.path);
-  await Hive.openBox('media');
-  serviceLocator.registerLazySingleton(() => Hive.box('media'));
+  final mediaBox = await CoreConfig.initializeHive();
+  serviceLocator.registerLazySingleton(() => mediaBox);
 
   // Core
   serviceLocator.registerLazySingleton<IHttp>(() => HttpDio());
@@ -67,7 +56,7 @@ Future<void> initDependencies() async {
 
   // Controller
   serviceLocator.registerLazySingleton(
-    () => MediaStateController(
+    () => MediaViewController(
       connectionChecker: serviceLocator<ConnectionChecker>(),
     ),
   );

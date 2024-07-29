@@ -2,26 +2,24 @@
 import 'package:core/core.dart';
 import 'package:flutter/foundation.dart';
 
-class MediaStateController extends ChangeNotifier {
+class MediaViewController {
   final ConnectionChecker _connectionChecker;
 
-  MediaStateController({
+  MediaViewController({
     required ConnectionChecker connectionChecker,
   }) : _connectionChecker = connectionChecker;
 
-  bool _isLoading = false;
-  bool _hasInternet = true;
+  final ValueNotifier<bool> _isLoading = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> _hasInternet = ValueNotifier<bool>(true);
 
-  bool get isLoading => _isLoading;
-  bool get hasInternet => _hasInternet;
+  ValueNotifier<bool> get isLoading => _isLoading;
+  ValueNotifier<bool> get hasInternet => _hasInternet;
 
-  void checkInternet() async {
-    _hasInternet = await _connectionChecker.isConnected;
-    notifyListeners();
+  Future<void> checkInternet() async {
+    _hasInternet.value = await _connectionChecker.isConnected;
   }
 
   void updateLoadingStatus() {
-    _isLoading = !_isLoading;
-    notifyListeners();
+    _isLoading.value = !_isLoading.value;
   }
 }
