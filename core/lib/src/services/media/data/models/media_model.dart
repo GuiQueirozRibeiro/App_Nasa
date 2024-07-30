@@ -3,7 +3,7 @@ import 'package:core/src/enums/media_type.dart';
 import 'package:core/src/services/media/domain/entities/media.dart';
 
 class MediaModel extends Media {
-  MediaModel({
+  const MediaModel({
     required super.url,
     required super.title,
     required super.explanation,

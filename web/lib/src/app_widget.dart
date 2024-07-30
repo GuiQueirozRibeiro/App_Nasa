@@ -1,4 +1,5 @@
 // External packages
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -18,6 +19,9 @@ class AppWidget extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => Modular.get<MediaProvider>(),
       child: MaterialApp.router(
+        theme: CoreTheme.lightTheme,
+        darkTheme: CoreTheme.darkTheme,
+        themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,

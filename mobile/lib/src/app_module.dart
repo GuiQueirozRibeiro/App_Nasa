@@ -2,6 +2,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:core/core.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hive/hive.dart';
 
 // Mobile application imports
 import 'package:mobile/src/app/view/pages/detail_page.dart';
@@ -25,7 +26,10 @@ class AppModule extends Module {
 
   void bindCoreDependencies(Injector i) {
     // Http Service
-    i.addLazySingleton<IHttp>(() => HttpDio());
+    i.addLazySingleton<IHttp>(HttpDio.new);
+
+    // Hive Media Box
+    i.addLazySingleton<Box>(CoreConfig.mediaBox);
 
     // Connectivity
     i.add(Connectivity.new);

@@ -9,7 +9,8 @@ abstract interface class MediaRemoteDataSource {
 
 class MediaRemoteDataSourceImpl implements MediaRemoteDataSource {
   final IHttp httpClient;
-  MediaRemoteDataSourceImpl(this.httpClient);
+
+  const MediaRemoteDataSourceImpl(this.httpClient);
 
   @override
   Future<List<MediaModel>> getMedia(String startDate, String endDate) async {
@@ -19,14 +20,19 @@ class MediaRemoteDataSourceImpl implements MediaRemoteDataSource {
         'end_date': endDate,
       };
       final response = await httpClient.get(query: query);
-      final List<dynamic> mediaList = response.data;
-      return mediaList
-          .map((media) => MediaModel.fromJson(media))
-          .toList()
-          .reversed
-          .toList();
+      if (response.statusCode == 200) {
+        final List<dynamic> mediaList = response.data;
+        return mediaList
+            .map((media) => MediaModel.fromJson(media))
+            .toList()
+            .reversed
+            .toList();
+      } else {
+        throw ServerException(
+            'Error fetching media: ${response.statusMessage}');
+      }
     } catch (e) {
-      throw ServerException(e.toString());
+      throw ServerException('Unexpected error: ${e.toString()}');
     }
   }
 }

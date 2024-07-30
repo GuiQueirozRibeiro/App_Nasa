@@ -29,13 +29,7 @@ class HttpDio implements IHttp {
     void Function(int, int)? onReceiveProgress,
   }) async {
     try {
-      _logInfo(
-        '',
-        "GET",
-        queryParamters: query,
-        headers: headers,
-        baseOptions: _dio.options.headers,
-      );
+      _logInfo(method: "GET");
       final DateTime start = DateTime.now();
       final response = await _dio.get(
         '',
@@ -45,8 +39,7 @@ class HttpDio implements IHttp {
       );
       final DateTime end = DateTime.now();
       _logResponse(
-        '',
-        "GET",
+        method: "GET",
         response: response,
         time: end.difference(start).inMilliseconds.toString(),
       );
@@ -66,13 +59,7 @@ class HttpDio implements IHttp {
     void Function(double percent)? onReceiveProgressPercent,
   }) async {
     try {
-      _logInfo(
-        path,
-        "DOWNLOAD",
-        queryParamters: query,
-        headers: headers,
-        baseOptions: _dio.options.headers,
-      );
+      _logInfo(method: "DOWNLOAD");
       final DateTime start = DateTime.now();
       final response = await _dio.download(
         path,
@@ -87,8 +74,7 @@ class HttpDio implements IHttp {
       );
       final DateTime end = DateTime.now();
       _logResponse(
-        path,
-        "DOWNLOAD",
+        method: "DOWNLOAD",
         response: response,
         time: end.difference(start).inMilliseconds.toString(),
       );
@@ -148,15 +134,8 @@ class HttpDio implements IHttp {
     throw Exception(exception.message ?? exception);
   }
 
-  void _logInfo(
-    String path,
-    String methodo, {
-    Map<String, dynamic>? headers,
-    Map<String, dynamic>? baseOptions,
-    Map<String, dynamic>? queryParamters,
-  }) {
-    log.i(
-        'METHOD: $methodo \nPATH: ${_dio.options.baseUrl}$path \nBASEOPTIONS: $baseOptions');
+  void _logInfo({required String method}) {
+    log.i('METHOD: $method \nPATH: ${_dio.options.baseUrl}');
   }
 
   void _logError({
@@ -170,18 +149,17 @@ class HttpDio implements IHttp {
       ..w('STACKTRACE: $stackTrace');
   }
 
-  void _logResponse(
-    String path,
-    String methodo, {
+  void _logResponse({
+    required String method,
     Response? response,
     String? time,
   }) {
     if (response?.statusCode == 200) {
       log.d(
-          '[RESPONSE]: ${response?.statusCode}\nMETHOD: $methodo \nPATH: ${_dio.options.baseUrl}$path \nTIME: 🕑$time ms \nRESPONSE: ${response?.data}');
+          '[RESPONSE]: ${response?.statusCode}\nMETHOD: $method \nPATH: ${_dio.options.baseUrl} \nTIME: 🕑$time ms \nRESPONSE: ${response?.data}');
     } else {
       log.f(
-          '[RESPONSE]: ${response?.statusCode}\nMETHOD: $methodo \nPATH: ${_dio.options.baseUrl}$path \nTIME: 🕑$time ms \nRESPONSE: ${response?.data}');
+          '[RESPONSE]: ${response?.statusCode}\nMETHOD: $method \nPATH: ${_dio.options.baseUrl} \nTIME: 🕑$time ms \nRESPONSE: ${response?.data}');
     }
   }
 }

@@ -9,7 +9,8 @@ import 'package:core/src/usecase/i_usecase.dart';
 
 class SearchMedia implements UseCase<List<Media>, SearchMediaParams> {
   final MediaRepository mediaRepository;
-  SearchMedia(this.mediaRepository);
+
+  const SearchMedia(this.mediaRepository);
 
   @override
   Future<Either<Failure, List<Media>>> call(SearchMediaParams params) async {
@@ -21,8 +22,8 @@ class SearchMedia implements UseCase<List<Media>, SearchMediaParams> {
 }
 
 class SearchMediaParams {
-  final List<Media> mediaList;
   final String query;
+  final List<Media> mediaList;
 
-  SearchMediaParams({required this.query, required this.mediaList});
+  const SearchMediaParams({required this.query, required this.mediaList});
 }

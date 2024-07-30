@@ -8,7 +8,7 @@ class Media {
   final MediaType mediaType;
   final DateTime date;
 
-  Media({
+  const Media({
     required this.url,
     required this.title,
     required this.explanation,

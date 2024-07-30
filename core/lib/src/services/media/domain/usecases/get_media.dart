@@ -10,7 +10,8 @@ import 'package:core/src/usecase/no_params.dart';
 
 class GetMedia implements UseCase<List<Media>, NoParams> {
   final MediaRepository mediaRepository;
-  GetMedia(this.mediaRepository);
+
+  const GetMedia(this.mediaRepository);
 
   @override
   Future<Either<Failure, List<Media>>> call(NoParams params) async {

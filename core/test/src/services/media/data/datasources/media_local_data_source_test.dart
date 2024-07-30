@@ -66,8 +66,7 @@ void main() {
       //     .thenAnswer((_) async => HttpResponse(data: null, statusCode: 200));
 
       // Act
-      await dataSource.uploadLocalMedia(
-          mediaList: mediaList, isFromCreate: true);
+      await dataSource.uploadLocalMedia(mediaList: mediaList);
 
       // Assert
       verify(mockBox.clear()).called(1);

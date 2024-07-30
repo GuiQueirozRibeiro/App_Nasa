@@ -8,11 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-// Mobile application imports
+// Web application imports
 import 'package:web/src/common/widgets/video_placeholder.dart';
 
 class DetailPage extends StatefulWidget {
   final Media media;
+
   const DetailPage({super.key, required this.media});
 
   @override
@@ -105,10 +106,7 @@ class _DetailPageState extends State<DetailPage> {
   Widget buildTitle() {
     return Text(
       widget.media.title,
-      style: const TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-      ),
+      style: Theme.of(context).textTheme.titleMedium,
     );
   }
 
@@ -118,11 +116,7 @@ class _DetailPageState extends State<DetailPage> {
         Localizations.localeOf(context),
         widget.media.date,
       ),
-      style: const TextStyle(
-        fontSize: 10,
-        fontWeight: FontWeight.w500,
-        color: Colors.black87,
-      ),
+      style: Theme.of(context).textTheme.labelSmall,
     );
   }
 
@@ -130,9 +124,7 @@ class _DetailPageState extends State<DetailPage> {
     return Text(
       widget.media.explanation,
       textAlign: TextAlign.justify,
-      style: const TextStyle(
-        fontSize: 12,
-      ),
+      style: Theme.of(context).textTheme.bodyMedium,
     );
   }
 

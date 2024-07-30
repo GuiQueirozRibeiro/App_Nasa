@@ -9,7 +9,9 @@ import 'package:path_provider/path_provider.dart';
 class CoreConfig {
   const CoreConfig._();
 
-  static Future<Box> initialize() async {
+  static Box? _mediaBox;
+
+  static Future<void> initialize() async {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     final mediaDirectory = Directory(
       path.join(appDocumentDirectory.path, 'media'),
@@ -21,6 +23,8 @@ class CoreConfig {
 
     // Initialize Hive
     Hive.init(mediaDirectory.path);
-    return await Hive.openBox('media');
+    _mediaBox = await Hive.openBox('media');
   }
+
+  static Box? mediaBox() => _mediaBox;
 }

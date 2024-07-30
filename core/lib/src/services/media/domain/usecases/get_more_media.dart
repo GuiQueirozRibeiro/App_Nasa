@@ -9,7 +9,8 @@ import 'package:core/src/usecase/i_usecase.dart';
 
 class GetMoreMedia implements UseCase<List<Media>, GetMoreMediaParams> {
   final MediaRepository mediaRepository;
-  GetMoreMedia(this.mediaRepository);
+
+  const GetMoreMedia(this.mediaRepository);
 
   @override
   Future<Either<Failure, List<Media>>> call(GetMoreMediaParams params) async {
@@ -19,5 +20,6 @@ class GetMoreMedia implements UseCase<List<Media>, GetMoreMediaParams> {
 
 class GetMoreMediaParams {
   final DateTime date;
+
   const GetMoreMediaParams({required this.date});
 }

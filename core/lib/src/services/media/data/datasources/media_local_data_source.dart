@@ -14,7 +14,7 @@ abstract interface class MediaLocalDataSource {
   List<MediaModel> getMedia({required DateTime date});
   Future<void> uploadLocalMedia({
     required List<MediaModel> mediaList,
-    bool isFromCreate = true,
+    bool isFromCreate = false,
   });
 }
 
@@ -22,7 +22,7 @@ class MediaLocalDataSourceImpl implements MediaLocalDataSource {
   final Box box;
   final IHttp httpClient;
 
-  MediaLocalDataSourceImpl(this.box, this.httpClient);
+  const MediaLocalDataSourceImpl(this.box, this.httpClient);
 
   @override
   List<MediaModel> getMedia({required DateTime date}) {
@@ -31,8 +31,7 @@ class MediaLocalDataSourceImpl implements MediaLocalDataSource {
     final List<MediaModel> mediaList = [];
 
     box.toMap().forEach((key, value) {
-      final Map<dynamic, dynamic> mediaData = value as Map<dynamic, dynamic>;
-      final media = MediaModel.fromJson(mediaData.cast<String, dynamic>());
+      final media = MediaModel.fromJson(value.cast<String, dynamic>());
       if (media.date.isAfter(startDate) && media.date.isBefore(endDate)) {
         mediaList.add(media);
       }
@@ -45,7 +44,7 @@ class MediaLocalDataSourceImpl implements MediaLocalDataSource {
   @override
   Future<void> uploadLocalMedia({
     required List<MediaModel> mediaList,
-    bool isFromCreate = true,
+    bool isFromCreate = false,
   }) async {
     if (isFromCreate) box.clear();
     final List<MediaModel> copiedList = List.from(mediaList);
@@ -53,7 +52,6 @@ class MediaLocalDataSourceImpl implements MediaLocalDataSource {
       try {
         final MediaModel updatedMedia = await _saveLocalMediaFile(media);
         box.add(updatedMedia.toJson());
-        mediaList.remove(media);
       } catch (e) {
         throw ServerException(e.toString());
       }

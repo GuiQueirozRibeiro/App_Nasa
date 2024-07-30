@@ -1,11 +1,11 @@
 // External packages
 import 'package:core/core.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hive/hive.dart';
 
 // Web application imports
 import 'package:web/src/app/view/pages/detail_page.dart';
 import 'package:web/src/app/view/pages/home_page.dart';
-import 'package:web/src/app/viewmodel/controllers/media_view_controller.dart';
 import 'package:web/src/app/viewmodel/providers/media_provider.dart';
 
 class AppModule extends Module {
@@ -24,7 +24,10 @@ class AppModule extends Module {
 
   void bindCoreDependencies(Injector i) {
     // Http Service
-    i.addLazySingleton<IHttp>(() => HttpDio());
+    i.addLazySingleton<IHttp>(HttpDio.new);
+
+    // Hive Media Box
+    i.addLazySingleton<Box>(CoreConfig.mediaBox);
   }
 
   void bindMediaDependencies(Injector i) {
@@ -42,8 +45,5 @@ class AppModule extends Module {
 
     // Providers
     i.addLazySingleton(MediaProvider.new);
-
-    // Controllers
-    i.addLazySingleton(MediaViewController.new);
   }
 }

@@ -22,20 +22,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with DialogMixin {
   final mediaViewController = Modular.get<MediaViewController>();
-
-  final searchController = TextEditingController();
+  final queryController = TextEditingController();
   final scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    inicializeFunctions();
+    initializeFunctions();
   }
 
   @override
   void dispose() {
+    queryController.dispose();
     scrollController.dispose();
-    searchController.dispose();
     super.dispose();
   }
 
@@ -46,15 +45,18 @@ class _HomePageState extends State<HomePage> with DialogMixin {
     return currentScroll >= maxScroll;
   }
 
-  void inicializeFunctions() {
-    final mediaProvider = Provider.of<MediaProvider>(context, listen: false);
-    mediaProvider.getMedia();
-    mediaViewController.checkInternet();
-    scrollController.addListener(onScroll);
+  void initializeFunctions() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final mediaProvider = Provider.of<MediaProvider>(context, listen: false);
+      mediaProvider.getMedia();
+      mediaViewController.checkInternet();
+      scrollController.addListener(onScroll);
+    });
   }
 
   Future<void> onRefresh() async {
     final mediaProvider = Provider.of<MediaProvider>(context, listen: false);
+    mediaViewController.checkInternet();
     await mediaProvider.getMedia();
   }
 
@@ -62,6 +64,7 @@ class _HomePageState extends State<HomePage> with DialogMixin {
     final mediaProvider = Provider.of<MediaProvider>(context, listen: false);
     if (_isBottom && !mediaProvider.isLoading) {
       mediaProvider.getMoreMedia();
+      mediaViewController.checkInternet();
     }
   }
 
@@ -72,64 +75,78 @@ class _HomePageState extends State<HomePage> with DialogMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('home_page'.i18n())),
-      body: RefreshIndicator(
-        onRefresh: onRefresh,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Consumer<MediaProvider>(
-            builder: (context, mediaProvider, child) {
-              return Column(
-                children: [
-                  SearchAppBar(
-                    controller: searchController,
-                    onChanged: searchMedia,
-                  ),
-                  const SizedBox(height: 16),
-                  noInternetMensage(),
-                  if (mediaProvider.isLoading) const Expanded(child: Loader()),
-                  if (mediaProvider.baseMediaList.isEmpty &&
-                      !mediaProvider.isLoading)
-                    Expanded(child: Center(child: Text('no_media'.i18n()))),
-                  if (mediaProvider.baseMediaList.isNotEmpty)
-                    Expanded(
-                      child: ListView.builder(
-                        controller: scrollController,
-                        itemCount: mediaProvider.baseMediaList.length +
-                            (mediaProvider.isLoading ? 1 : 0),
-                        itemBuilder: (context, index) {
-                          if (index < mediaProvider.baseMediaList.length) {
-                            final media = mediaProvider.baseMediaList[index];
-                            return MediaItem(media: media);
-                          } else if (mediaProvider.hasMoreData) {
-                            return const Loader();
-                          } else {
-                            return const SizedBox();
-                          }
-                        },
-                      ),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('home_page'.i18n()),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: Image.asset('lib/assets/images/logo.png'),
+            ),
+          ],
+        ),
+        body: RefreshIndicator(
+          onRefresh: onRefresh,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Consumer<MediaProvider>(
+              builder: (context, mediaProvider, child) {
+                return Column(
+                  children: [
+                    SearchAppBar(
+                      controller: queryController,
+                      onChanged: searchMedia,
                     ),
-                ],
-              );
-            },
+                    const SizedBox(height: 16),
+                    buildInternetStatus(),
+                    Expanded(
+                      child: mediaProvider.mediaList.isEmpty
+                          ? mediaProvider.isLoading
+                              ? const Loader()
+                              : showNoItemsMessage(
+                                  'no_media'.i18n(),
+                                  'no_media_content'.i18n(),
+                                  onRefresh,
+                                )
+                          : buildMediaList(mediaProvider),
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget noInternetMensage() {
+  Widget buildInternetStatus() {
     return Watch((_) {
       return !mediaViewController.hasInternet
-          ? Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Text(
-                'outdated_data'.i18n(),
-                style: const TextStyle(color: Colors.red),
-              ),
+          ? Text(
+              'outdated_data'.i18n(),
+              style: const TextStyle(color: Colors.red),
             )
           : const SizedBox.shrink();
     });
+  }
+
+  Widget buildMediaList(MediaProvider provider) {
+    return ListView.builder(
+      controller: scrollController,
+      itemCount: provider.mediaList.length + (provider.isLoading ? 1 : 0),
+      itemBuilder: (context, index) {
+        if (index < provider.mediaList.length) {
+          final media = provider.mediaList[index];
+          return MediaItem(media: media);
+        } else if (provider.hasMoreData) {
+          return const Loader();
+        } else {
+          return const SizedBox();
+        }
+      },
+    );
   }
 }

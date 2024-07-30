@@ -1,4 +1,5 @@
 // External packages
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
 
@@ -21,17 +22,21 @@ class SearchAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
+      onChanged: onChanged,
+      onSubmitted: onChanged,
       decoration: InputDecoration(
         hintText: 'search_field'.i18n(),
-        prefixIcon: const Icon(Icons.search),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4),
+          borderSide: const BorderSide(color: ThemePalette.primary, width: 1),
+        ),
+        contentPadding: const EdgeInsets.all(10),
         suffixIcon: IconButton(
           onPressed: clear,
           icon: const Icon(Icons.clear),
         ),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
       ),
-      onChanged: onChanged,
-      onSubmitted: onChanged,
     );
   }
 }

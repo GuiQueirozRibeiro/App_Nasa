@@ -12,6 +12,7 @@ import 'package:web/src/common/widgets/video_placeholder.dart';
 
 class MediaItem extends StatelessWidget {
   final Media media;
+
   const MediaItem({super.key, required this.media});
 
   @override
@@ -40,9 +41,21 @@ class MediaItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  buildTitle(),
+                  Text(
+                    media.title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(color: Colors.white),
+                  ),
                   const SizedBox(height: 4),
-                  buildDate(currentLocale),
+                  Text(
+                    TimeUtil.formatDate(currentLocale, media.date),
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall
+                        ?.copyWith(color: Colors.white),
+                  )
                 ],
               ),
             ),
@@ -52,60 +65,30 @@ class MediaItem extends StatelessWidget {
     );
   }
 
-  Widget buildTitle() {
-    return Text(
-      media.title,
-      style: const TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-        color: Colors.white,
-      ),
-    );
-  }
-
-  Widget buildDate(Locale currentLocale) {
-    return Text(
-      TimeUtil.formatDate(currentLocale, media.date),
-      style: const TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.w500,
-        color: Colors.white,
-      ),
-    );
-  }
-
   Widget buildImage() {
     switch (media.mediaType) {
       case MediaType.image:
-        return buildNetworkImage();
+        return Container(
+          color: Colors.grey,
+          height: 220,
+          width: double.infinity,
+          child: CachedNetworkImage(
+            imageUrl: media.url,
+            height: 220,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+        );
       case MediaType.imageFile:
-        return buildLocalImage();
+        return Image.file(
+          File(media.url),
+          height: 220,
+          width: double.infinity,
+          fit: BoxFit.cover,
+        );
       case MediaType.video:
       case MediaType.videoFile:
         return const VideoPlaceholder();
     }
-  }
-
-  Widget buildNetworkImage() {
-    return Container(
-      color: Colors.grey,
-      height: 220,
-      width: double.infinity,
-      child: CachedNetworkImage(
-        imageUrl: media.url,
-        height: 220,
-        width: double.infinity,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
-
-  Widget buildLocalImage() {
-    return Image.file(
-      File(media.url),
-      height: 220,
-      width: double.infinity,
-      fit: BoxFit.cover,
-    );
   }
 }

@@ -16,7 +16,7 @@ class MediaRepositoryImpl implements MediaRepository {
   final MediaLocalDataSource localDataSource;
   final ConnectionChecker connectionChecker;
 
-  MediaRepositoryImpl(
+  const MediaRepositoryImpl(
     this.remoteDataSource,
     this.localDataSource,
     this.connectionChecker,
@@ -28,16 +28,22 @@ class MediaRepositoryImpl implements MediaRepository {
   }) async {
     try {
       if (!await connectionChecker.isConnected) {
-        final localMedia = localDataSource.getMedia(date: date);
-        final mediaList = localMedia.map((model) => model.toMedia()).toList();
-        return right(mediaList);
+        try {
+          final localMedia = localDataSource.getMedia(date: date);
+          return Right(localMedia.map((model) => model.toMedia()).toList());
+        } catch (e) {
+          return Left(Failure('Failed to fetch local media: ${e.toString()}'));
+        }
       }
       final startDate = TimeUtil.getStartDate(date: date);
       final endDate = TimeUtil.getEndDate(date: date);
 
       final remoteMedia = await remoteDataSource.getMedia(startDate, endDate);
       final mediaList = remoteMedia.map((model) => model.toMedia()).toList();
-      localDataSource.uploadLocalMedia(mediaList: remoteMedia);
+      localDataSource.uploadLocalMedia(
+        mediaList: remoteMedia,
+        isFromCreate: true,
+      );
 
       return right(mediaList);
     } on ServerException catch (e) {
@@ -63,8 +69,8 @@ class MediaRepositoryImpl implements MediaRepository {
 
       List<Media> filteredMedia = uniqueMedia.toList();
       return right(filteredMedia);
-    } on ServerException catch (e) {
-      return left(Failure(e.message));
+    } catch (e) {
+      return left(Failure('Unexpected error: ${e.toString()}'));
     }
   }
 
